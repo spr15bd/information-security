@@ -30,7 +30,7 @@ var helmet = require('helmet');
 // people off. e.g. `helmet.hidePoweredBy({ setTo: 'PHP 4.2.0' })`
 
 // Use `helmet.hidePoweredBy()``
-helmet.hidePoweredBy();
+app.use(helmet.hidePoweredBy({ setTo: 'PHP 4.2.0' }));
 
 
 /** 3) Mitigate the risk of clickjacking - `helmet.frameguard()` */
@@ -45,7 +45,7 @@ helmet.hidePoweredBy();
 
 // We don't need our app to be framed, so you should use `helmet.frameguard()`
 // passing to it the configuration object `{action: 'deny'}`
-
+app.use(helmet.frameguard({action:'deny'}));
  
 
 /** 4) Mitigate the risk of XSS - `helmet.xssFilter()` */
@@ -68,7 +68,7 @@ helmet.hidePoweredBy();
 // It still has limited support.
 
 // Use `helmet.xssFilter()`
-
+app.use(helmet.xssFilter());
 
 
 /** 5) Avoid inferring the response MIME type - `helmet.noSniff()` */
