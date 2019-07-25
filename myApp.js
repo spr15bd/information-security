@@ -134,7 +134,7 @@ app.use(helmet.hsts({
 // DNS prefetching, at the cost of a performance penalty.
 
 // Use `helmet.dnsPrefetchControl()`
-
+app.use(helmet.dnsPrefetchControl());
 
 
 /** 9) Disable Client-Side Caching - `helmet.noCache()` */
@@ -146,7 +146,7 @@ app.use(helmet.hsts({
 // use this option only when there is a real need.
 
 // Use helmet.noCache()
-
+app.use(helmet.noCache());
 
 
 /** 10) Content Security Policy - `helmet.contentSecurityPolicy()` */
@@ -176,7 +176,12 @@ app.use(helmet.hsts({
 // **Hint**: 
 // in the `"'self'"` keyword, the single quotes are part of the keyword itself, 
 // so it needs to be enclosed in **double quotes** to be working.
-
+app.use(helmet.contentSecurityPolicy({
+  directives: {
+    defaultSrc: ["'self'"],
+    scriptSrc: ["'self'", "trusted-cdn.com"]
+  }
+}));
 
 
 /** TIP: */ 
@@ -203,6 +208,10 @@ app.use(helmet.hsts({
 // We introduced each middleware separately, for teaching purpose, and for
 // ease of testing. Using the 'parent' `helmet()` middleware is easiest, and
 // cleaner, for a real project.
+app.use(helmet());
+
+
+
 
 // ---- DO NOT EDIT BELOW THIS LINE ---------------------------------------
 
